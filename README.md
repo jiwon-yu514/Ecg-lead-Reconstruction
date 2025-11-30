@@ -101,17 +101,17 @@ PhysioNet에서 제공하는 두 공개 ECG 데이터셋을 사용.
 ---
 
 ## 콤보별 마스크 예시
-C1-II+V1
+**C1-II+V1**
 ![마스크](figs/mask%20C1-C6/mask_C1.png)
-C2-I+II+V3
+**C2-I+II+V3**
 ![마스크](figs/mask%20C1-C6/mask_C2.png)
-C3-I+II+V2+V4
+**C3-I+II+V2+V4**
 ![마스크](figs/mask%20C1-C6/mask_C3.png)
-C4-aVR+V3+V4+V5+V6
+**C4-aVR+V3+V4+V5+V6**
 ![마스크](figs/mask%20C1-C6/mask_C4.png)
-C5-III+aVL+aVF+V1+V2+V3
+**C5-III+aVL+aVF+V1+V2+V3**
 ![마스크](figs/mask%20C1-C6/mask_C5.png)
-C6-I+II+III+aVL+aVR+aVF+V2
+**C6-I+II+III+aVL+aVR+aVF+V2**
 ![마스크](figs/mask%20C1-C6/mask_C6.png)
 
 ## 모델 구조
