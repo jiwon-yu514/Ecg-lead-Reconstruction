@@ -1,38 +1,13 @@
-# Ecg-lead-Reconstruction
+# 🫀 가변 리드 조합에서의 단일 딥러닝 모델을 활용한 12리드 심전도 재구성  
+**12-lead Electrocardiogram Reconstruction Using a Single Deep Learning Model with Variable Lead Combinations**
 
-# 🫀 ECG Lead Reconstruction from Limited Leads
+## 📌 연구/프로젝트 개요
 
-> Reconstructing standard 12-lead ECG from a small subset of leads using a Multi-Channel Masked Autoencoder (MCMA)–style model.
+웨어러블 심전도 기기는 주로 **소수의 사지 유도(1–3리드)** 만 제공하는 반면, 실제 임상 진단은 여전히 **표준 12리드 ECG**에 의존함.  
+본 프로젝트의 목표는 다음과 같음.
 
----
+- ✅ **서로 다른 입력 리드 조합(C1–C6)** 에서 **하나의 딥러닝 모델**로 12리드 ECG를 재구성할 수 있는지 평가  
+- ✅ **MIMIC-IV-ECG**로 학습하고, **PTB-XL**에서 외부 검증 수행  
+- ✅ 리드 수/조합/해부학적 위치에 따른 **재구성 난이도 차이 정량·정성 분석**  
+- ✅ 웨어러블/부분 리드 환경에서 사용할 수 있는 **범용(Universal) 12리드 재구성 모델**의 가능성 검토  
 
-## 📌 Overview
-
-Wearable or reduced-lead ECG devices often record only 1–3 leads, which limits their diagnostic utility compared to standard 12-lead ECG.  
-This project aims to **reconstruct full 12-lead ECG waveforms from a small subset of input leads**, using a deep learning model inspired by **masked autoencoders** and recent **ECG lead reconstruction** studies.
-
-주요 목표:
-
-- ✅ 적은 리드(예: 1~7리드)로부터 **표준 12리드 파형 재구성**
-- ✅ **MIMIC-IV-ECG, PTB-XL** 등 공개 데이터셋 기반 실험
-- ✅ 리드 조합별 성능 비교 및 임상적 의미 분석
-
----
-
-## 🗂 Project Structure
-
-```bash
-ecg-lead-reconstruction/
-├─ data/                # 원본/전처리 데이터 (gitignore 권장)
-├─ configs/             # 실험 설정 (리드 조합, 하이퍼파라미터 등)
-├─ src/
-│  ├─ preprocess/       # WFDB → NPY/NPZ, 리샘플링, 필터링, 윈도 나누기
-│  ├─ models/           # MCMA / UNet / Transformer 등 모델 정의
-│  ├─ training/         # 학습 루프, 콜백, 로그 저장
-│  ├─ evaluation/       # MSE, PCC, SSIM, FID, CID 등 평가 스크립트
-│  └─ visualization/    # 리드별 파형 비교, 히트맵, 결과 그림 저장
-├─ notebooks/           # 실험용 Jupyter 노트북
-├─ scripts/             # 쉘/파이썬 실행 스크립트 (전처리, 학습, 평가)
-├─ figs/                # 논문/발표용 그림
-├─ requirements.txt     # 파이썬 의존성
-└─ README.md
