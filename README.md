@@ -70,7 +70,9 @@ PhysioNet에서 제공하는 두 공개 ECG 데이터셋을 사용.
 6. **고정 길이 윈도 분할**
    - 전체 파형을 길이 **1,024 샘플**의 윈도우로 순차 분할
    - 각 윈도우를 하나의 **학습/평가 샘플**로 사용
----
+--
+![전처리](figs/전처리.png)
+--
 
 ## 입력 리드 조합 (C1–C6) 및 Lead Dropout
 
@@ -96,12 +98,21 @@ PhysioNet에서 제공하는 두 공개 ECG 데이터셋을 사용.
 
 > 검증 단계에서는 정보량이 가장 적은 C1(II, V1)을 고정 입력으로 사용하여,  
 > 최소 리드 구성에서의 수렴 여부 및 과적합을 모니터링.
-
 ---
+
+## 콤보별 마스크 예시
+![마스크](figs/mask%20C1-C6/mask_C1.png)
+![마스크](figs/mask%20C1-C6/mask_C2.png)
+![마스크](figs/mask%20C1-C6/mask_C3.png)
+![마스크](figs/mask%20C1-C6/mask_C4.png)
+![마스크](figs/mask%20C1-C6/mask_C5.png)
+![마스크](figs/mask%20C1-C6/mask_C6.png)
 
 ## 모델 구조
 
 본 프로젝트의 기본 모델은 **ResNet–U-Net 구조의 1차원 인코더–디코더 네트워크**.
+
+![모델 구조](figs/모델%20구조.png)
 
 - **전반적인 구조**
   - 다운샘플링을 수행하는 `DRBlock`
@@ -109,8 +120,8 @@ PhysioNet에서 제공하는 두 공개 ECG 데이터셋을 사용.
   - 두 모듈이 대칭적으로 연결된 **U-Net 형태**
 
 - **주요 설정**
-  - 커널 크기: `5`
-  - 스트라이드: `2` (계층적으로 특징 압축 및 복원)
+  - 커널 크기: `13`
+  - 스트라이드: `1/2` (계층적으로 특징 압축 및 복원)
   - 활성화 함수: **GELU**
   - 정규화: **Layer Normalization + Instance Normalization** 동시 적용
   - **Residual connection**으로 학습 안정성과 표현력 향상
@@ -201,6 +212,13 @@ PhysioNet에서 제공하는 두 공개 ECG 데이터셋을 사용.
 ## 파형 형태 기반 정성 평가
 
 C1–C6에 대해 임의의 2초 구간을 시각화한 결과:
+
+![결과](figs/C1-C6/C1-II%2BV1.png)
+![결과](figs/C1-C6/C2-I%2BII%2BV3.png)
+![결과](figs/C1-C6/C3-I%2BII%2BV2%2BV4.png)
+![결과](figs/C1-C6/C4-aVR%2BV3%2BV4%2BV5%2BV6.png)
+![결과](figs/C1-C6/C5-III%2BaVL%2BaVF%2BV1%2BV2%2BV3.png)
+![결과](figs/C1-C6/C6-I%2BII%2BIII%2BaVL%2BaVR%2BaVF%2BV2.png)
 
 - 대부분 리드에서
   - **P파, QRS, T파의 시점·극성**이 실제 신호와 거의 일치
